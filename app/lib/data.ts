@@ -8,7 +8,9 @@ export async function getData() {
       // This will activate the closest `error.js` Error Boundary
       throw new Error('Failed to fetch data');
     }
+
+    let result = res.json();
    
-    console.log(res.json());
-    return res.json();
+    // console.log(result);
+    return result;
 }

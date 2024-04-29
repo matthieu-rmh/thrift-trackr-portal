@@ -1,11 +1,28 @@
 import { getData } from "@app/lib/data";
+import {Item} from "@app/lib/definitions";
 
 export default async function Page(){
-    // let data = await getData();
-    // console.log(data);
+    let items:Item[] = await getData();
     return(
         <div>
-            <p>Item page</p>
+            <table className="min-w-full divide-y divide-gray-200 shadow-md rounded-lg overflow-hidden">
+                <thead className="bg-gray-800">
+                    <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Category</th>
+                    </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                {items.map((item, index) => (
+
+                    <tr key={index}>
+                        <td className="px-6 py-4 whitespace-nowrap">{item.name}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{item.category.name}</td>
+                    </tr>
+                ))}
+
+                </tbody>
+            </table>
         </div>
     );
 }

@@ -30,7 +30,7 @@ export default function RootLayout({
           {/* CONTENT AREA */}
           <div>
             <div className="flex-grow p-6">
-              <h1 className="text-3xl font-bold mb-4">MAIN LAYOUT</h1>
+              {/* <h1 className="text-3xl font-bold mb-4">MAIN LAYOUT</h1> */}
               <div>{children}</div>
             </div>
           </div>
