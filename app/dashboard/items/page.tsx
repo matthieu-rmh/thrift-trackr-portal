@@ -1,10 +1,14 @@
-import { getData } from "@app/lib/data";
+import { getData} from "@app/lib/data";
 import {Item} from "@app/lib/definitions";
 
 export default async function Page(){
     let items:Item[] = await getData();
+
     return(
         <div>
+            <div className="m-5">
+                <h1 className="border-b border-gray-300 text-3xl">Items</h1>
+            </div>
             <table className="min-w-full divide-y divide-gray-200 shadow-md rounded-lg overflow-hidden">
                 <thead className="bg-gray-800">
                     <tr>
