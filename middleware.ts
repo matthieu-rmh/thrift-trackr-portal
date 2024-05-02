@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { verifyUserToken } from '@app/lib/actions'
- 
+
 // 1. Specify protected and public routes
 const protectedRoutes = ['/dashboard']
 const publicRoutes = ['/login', '/']
@@ -20,7 +20,7 @@ export default async function middleware(req: NextRequest) {
   
   // 4. Redirect to /login if the user is not authenticated
   if (isProtectedRoute && !cookies().has('user_token') && 'errors' in vut) {
-    return NextResponse.redirect(new URL('/login', req.nextUrl));
+    return NextResponse.redirect(new URL('/login?showNeedLogin=true', req.nextUrl));
   }
  
   return NextResponse.next()

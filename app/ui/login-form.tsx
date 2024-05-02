@@ -2,9 +2,17 @@
 
 import { useFormState } from 'react-dom'
 import { logIn } from "@app/lib/actions";
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 
 export function LoginForm(){
+    const params = useSearchParams();
+    const pathname = usePathname();
     const [state, action] = useFormState(logIn, undefined)
+
+    console.log(params);
+    console.log(pathname);
 
     return(
     <form action={action} className="space-y-6">

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import PageHeader from '@app/ui/page-header' ;
 import PageFooter from '@app/ui/page-footer' ;
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,7 @@ export default function RootLayout({
           <PageHeader/>
           {/*MAIN CONTENT*/}
           <main className="flex-grow flex bg-gray-200">
-
+            <Toaster/>
             {children}
 
           </main>
