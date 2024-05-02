@@ -2,6 +2,47 @@
 
 import { redirect } from 'next/navigation';
 import { LoginFormState } from './definitions';
+import { cookies } from 'next/headers'
+
+// CHECK IF USER IS LOGGED_IN (USER_TOKEN IN COOKIES)
+export async function isLoggedIn() {
+  return cookies().has("user_token");
+}
+
+// LOG OUT ACTION
+export async function logOut() {
+  cookies().delete("user_token");
+  redirect('/login');
+}
+
+// READ COOKIES FOR TEST PURPOSES
+export async function readCookies(){
+  console.log("READING COOKIES");
+  console.log(cookies().getAll());
+}
+
+export async function verifyUserToken(userToken: string){
+  let data = {};
+  let responseValue;
+  try {
+    const response = await fetch("http://localhost:3010/auth/verifyUserToken", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "user_token": userToken
+        },
+        body: JSON.stringify(data)
+    });
+
+    let res = await response.json();
+    responseValue = res;
+  } catch (error) {
+    responseValue = error;
+  }
+  
+  return responseValue;
+}
+
 
 // function makeFetching(url: string, data: Object, method: string): Object{
 //     /*
@@ -31,7 +72,7 @@ import { LoginFormState } from './definitions';
 export async function logIn(state: LoginFormState, formData: FormData){
 
     let url = "http://localhost:3010/auth/login";
-    let response_value;
+    let responseValue;
 
     const data = {
       name: formData.get('name'), 
@@ -49,16 +90,18 @@ export async function logIn(state: LoginFormState, formData: FormData){
         });
 
         let res = await response.json();
-        response_value = res;
+        responseValue = res;
       } catch (error) {
-        response_value = error;
+        responseValue = error;
       }
 
     // DISPLAY ERRORS IF ERRORS EXIST AT LOGIN FORM
-    if ('errors' in response_value){
-      return response_value;
+    if ('errors' in responseValue){
+      return responseValue;
     // ELSE CREATE SESSION AND REDIRECT TO DASHBOARD
     } else{
+        // CREATING SESSION
+        cookies().set("user_token", responseValue.accessToken);
         redirect('/dashboard/items');
     }
 

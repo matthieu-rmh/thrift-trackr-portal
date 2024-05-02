@@ -1,9 +1,9 @@
 import { getData} from "@app/lib/data";
 import {Item} from "@app/lib/definitions";
+// import { verifyUserToken } from "@app/lib/actions";
 
 export default async function Page(){
     let items:Item[] = await getData();
-
     return(
         <div>
             <div className="m-5">
