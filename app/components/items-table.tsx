@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 type ItemsTableProps = {
     items: Item[];
     isFLoggedIn: boolean;
-    // Add other props as needed
   };
 
 const ItemsTable: React.FC<ItemsTableProps> = ({items, isFLoggedIn}) => {

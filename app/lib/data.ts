@@ -1,4 +1,4 @@
-export async function getData() {
+export async function getItems() {
     const res = await fetch('http://localhost:3010/api/items');
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.

@@ -1,22 +1,12 @@
-import { getData} from "@app/lib/data";
+import { getItems} from "@app/lib/data";
 import {Item} from "@app/lib/definitions";
-import { isFirstLoggedIn, deleteFirstLoginCookie } from "@app/lib/actions";
-// import { useEffect } from "react";
-import toast from "react-hot-toast";
+import { isFirstLoggedIn} from "@app/lib/actions";
 import ItemsTable from "@app/components/items-table";
 
 export default async function Page(){
     let isFLoggedIn = await isFirstLoggedIn();
 
-    // useEffect(()=>{
-    //     if (isFLoggedIn){
-    //         toast.success("Welcome");
-    //         deleteFirstLoginCookie();
-    //     }
-
-    // }, [])
-
-    let items:Item[] = await getData();
+    let items:Item[] = await getItems();
 
     return(
         <div>

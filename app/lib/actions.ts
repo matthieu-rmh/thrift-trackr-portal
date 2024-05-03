@@ -4,7 +4,31 @@ import { redirect } from 'next/navigation';
 import { LoginFormState } from './definitions';
 import { cookies } from 'next/headers'
 
+export async function deleteFirstLogoutCookie() {
+  /* called after the succesful display of the 'first_logout' toast */
+  cookies().delete("first_logout");
+}
+
+export async function firstLogout(){
+  /* 
+    Checks if the "first_logout" cookie is set 
+    (which means the user just logged out) 
+    Returns the boolean on whether or not the login page 
+    should display the "first_logout" toast or not  
+  */
+  let firstLogout = false;
+
+  if (cookies().has("first_logout") && cookies().get("first_logout")?.value=="true"){
+    firstLogout = true;
+  }
+ 
+  return firstLogout;
+}
+
 export async function isFirstLoggedIn() {
+  /*
+    This function checks if the user is logged in for the first time
+  */
   let isFirstLoggedIn = false;
 
   if (cookies().has("first_login") && cookies().get("first_login")?.value=="true"){
@@ -14,25 +38,25 @@ export async function isFirstLoggedIn() {
   return isFirstLoggedIn;
 }
 
-// CALLED AFTER THE SUCCESFUL DISPLAY OF THE 'FIRST_LOGIN' TOAST
 export async function deleteFirstLoginCookie() {
+  /* called after the succesful display of the 'first_login' toast*/
   cookies().delete("first_login");
 }
 
 
-// CALLED AFTER THE FIRST DISPLAY OF THE 'NEED_LOGIN' TOAST
 export async function deleteNeedLoginCookie(){
+  /* called after the first display of the 'need_login' toast */
   cookies().delete("need_login");
 }
 
-/* 
-  Checks if the "need_login" cookie is set 
-  (which means there was an attempt to enter a 
-  protected route without a valid 'user_token') 
-  Returns the boolean on whether or not the login page 
-  should display the "need_login" toast or not  
-*/
 export async function needLogin(){
+  /* 
+    Checks if the "need_login" cookie is set 
+    (which means there was an attempt to enter a 
+    protected route without a valid 'user_token') 
+    Returns the boolean on whether or not the login page 
+    should display the "need_login" toast or not  
+  */
   let needLogin = false;
 
   if (cookies().has("need_login") && cookies().get("need_login")?.value=="true"){
@@ -41,24 +65,31 @@ export async function needLogin(){
  
   return needLogin;
 }
-// CHECK IF USER IS LOGGED_IN (USER_TOKEN IN COOKIES)
 export async function isLoggedIn() {
+  /* check if user is logged_in (user_token in cookies) */
   return cookies().has("user_token");
 }
 
-// LOG OUT ACTION
 export async function logOut() {
+  /* log out action */
+
   cookies().delete("user_token");
+  // This cookie will be used to display a toast after a succesful logout
+  cookies().set("first_logout","true");
   redirect('/login');
 }
 
-// READ COOKIES FOR TEST PURPOSES
 export async function readCookies(){
+  /* Read cookies for test purposes */
   console.log("READING COOKIES");
   console.log(cookies().getAll());
 }
 
 export async function verifyUserToken(userToken: string){
+  /*
+    This function will make a request to the API 
+    to verify the user token validirty
+  */
   let data = {};
   let responseValue;
   try {
@@ -107,6 +138,7 @@ export async function verifyUserToken(userToken: string){
 // }
 
 export async function logIn(state: LoginFormState, formData: FormData){
+  /* Log in to the server and get the user token if succesful */
 
     let url = "http://localhost:3010/auth/login";
     let responseValue;
