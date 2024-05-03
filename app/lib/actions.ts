@@ -4,6 +4,43 @@ import { redirect } from 'next/navigation';
 import { LoginFormState } from './definitions';
 import { cookies } from 'next/headers'
 
+export async function isFirstLoggedIn() {
+  let isFirstLoggedIn = false;
+
+  if (cookies().has("first_login") && cookies().get("first_login")?.value=="true"){
+    isFirstLoggedIn = true;
+  }
+ 
+  return isFirstLoggedIn;
+}
+
+// CALLED AFTER THE SUCCESFUL DISPLAY OF THE 'FIRST_LOGIN' TOAST
+export async function deleteFirstLoginCookie() {
+  cookies().delete("first_login");
+}
+
+
+// CALLED AFTER THE FIRST DISPLAY OF THE 'NEED_LOGIN' TOAST
+export async function deleteNeedLoginCookie(){
+  cookies().delete("need_login");
+}
+
+/* 
+  Checks if the "need_login" cookie is set 
+  (which means there was an attempt to enter a 
+  protected route without a valid 'user_token') 
+  Returns the boolean on whether or not the login page 
+  should display the "need_login" toast or not  
+*/
+export async function needLogin(){
+  let needLogin = false;
+
+  if (cookies().has("need_login") && cookies().get("need_login")?.value=="true"){
+    needLogin = true;
+  }
+ 
+  return needLogin;
+}
 // CHECK IF USER IS LOGGED_IN (USER_TOKEN IN COOKIES)
 export async function isLoggedIn() {
   return cookies().has("user_token");
@@ -102,6 +139,12 @@ export async function logIn(state: LoginFormState, formData: FormData){
     } else{
         // CREATING SESSION
         cookies().set("user_token", responseValue.accessToken);
+
+        // WE NEED THIS COOKIE TO DISPLAY A SUCCESFUL LOGIN TOAST
+        cookies().set("first_login", "true");
+
+        // DELETE THE COOKIE RESPONSIBLE OF DISPLAYING THE NEEDLOGIN TOAST
+        cookies().delete("need_login");
         redirect('/dashboard/items');
     }
 

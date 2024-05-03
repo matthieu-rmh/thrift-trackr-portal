@@ -1,18 +1,29 @@
 'use client'
 
 import { useFormState } from 'react-dom'
-import { logIn } from "@app/lib/actions";
+import { logIn, needLogin, deleteNeedLoginCookie } from "@app/lib/actions";
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { mock } from 'node:test';
 
-export function LoginForm(){
-    const params = useSearchParams();
-    const pathname = usePathname();
+
+export function LoginForm({ needToLog }: { needToLog: boolean }){
+    const searchParams = useSearchParams();
+    // const pathname = usePathname();
     const [state, action] = useFormState(logIn, undefined)
 
-    console.log(params);
-    console.log(pathname);
+    const params = new URLSearchParams(searchParams);
+
+    
+    
+    useEffect(()=>{
+        if (needToLog){
+            toast.error("You need to be logged in");
+            deleteNeedLoginCookie();
+        }
+
+    }, [])
 
     return(
     <form action={action} className="space-y-6">
