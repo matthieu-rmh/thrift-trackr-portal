@@ -17,8 +17,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
-    <html lang="en">
+    <html lang="en" className="">
       <body className={`${inter.className} flex flex-col min-h-screen`}>
           <PageHeader/>
           {/*MAIN CONTENT*/}
