@@ -4,6 +4,22 @@ import { redirect } from 'next/navigation';
 import { LoginFormState } from './definitions';
 import { cookies } from 'next/headers'
 
+export async function getTheme() {
+  /*
+    Returns the current theme from cookie
+    If not defined, set it to the default one (light)
+   */
+
+  let defaultTheme = "light";
+
+  if (!cookies().has("theme")){
+    return defaultTheme;
+  } else {
+    return cookies().get("theme");
+  }
+  
+}
+
 export async function deleteFirstLogoutCookie() {
   /* called after the succesful display of the 'first_logout' toast */
   cookies().delete("first_logout");
@@ -136,6 +152,10 @@ export async function verifyUserToken(userToken: string){
 
 //     return {};
 // }
+
+export async function toggleTheme(formData: FormData){
+  console.log(formData);
+}
 
 export async function logIn(state: LoginFormState, formData: FormData){
   /* Log in to the server and get the user token if succesful */

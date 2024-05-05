@@ -4,6 +4,7 @@ import "./globals.css";
 import PageHeader from '@app/ui/page-header' ;
 import PageFooter from '@app/ui/page-footer' ;
 import { Toaster } from "react-hot-toast";
+import { getTheme } from "./lib/actions";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,11 +13,14 @@ export const metadata: Metadata = {
   description: "App to track my thrift Items",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  let theme = await getTheme();
+  console.log(theme);
 
   return (
     <html lang="en" className="">
