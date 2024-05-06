@@ -1,13 +1,29 @@
 'use client'
 import {MoonIcon} from '@heroicons/react/24/outline';
 import { toggleTheme } from '@app/lib/actions';
+import { useEffect } from 'react';
 
 
 export default function ThemeButton() {
 
     const handleToggleTheme = (eTarget: HTMLInputElement) => {
+        console.log(window.localStorage);
         console.log(eTarget.checked);
     }
+
+    useEffect(() => {
+        // Check if the window object is available (indicating client-side rendering)
+        if (typeof window !== 'undefined') {
+          // Access localStorage only on the client-side
+          console.log(window.localStorage);
+          let ls = window.localStorage;
+          ls.setItem("theme", "light");
+          console.log(ls.getItem("theme"));
+        }
+      }, []);
+
+    // console.log(localStorage.getItem("theme"));
+
 
     return(
         <>
