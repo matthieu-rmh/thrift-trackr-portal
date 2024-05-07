@@ -4,7 +4,6 @@ import "./globals.css";
 import PageHeader from '@app/ui/page-header' ;
 import PageFooter from '@app/ui/page-footer' ;
 import { Toaster } from "react-hot-toast";
-import { getTheme } from "./lib/actions";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,23 +18,20 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  let theme = await getTheme();
-  console.log(theme);
-
   return (
-    <html lang="en" className="">
-      <body className={`${inter.className} flex flex-col min-h-screen`}>
-          <PageHeader/>
-          {/*MAIN CONTENT*/}
-          <main className="flex-grow flex bg-gray-200">
-            <Toaster/>
-            {children}
+    <html lang="en">
+        <body className={`${inter.className} flex flex-col min-h-screen`}>
+            <PageHeader/>
+            {/*MAIN CONTENT*/}
+            <main className="flex-grow flex bg-gray-200">
+              <Toaster/>
+              {children}
 
-          </main>
-  
-          <PageFooter/>
-  
-      </body>
+            </main>
+    
+            <PageFooter/>
+    
+        </body>
     </html>
   );
 }
