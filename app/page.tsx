@@ -1,8 +1,8 @@
 export default function Home() {
 
   return (
-    <>
-      Main Page
-    </>
+    <div>
+      Let's go
+    </div>
   );
 }
