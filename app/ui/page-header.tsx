@@ -7,7 +7,7 @@ export default async function PageHeader(){
     let loggedIn = await isLoggedIn();
 
     return(
-        <header className="bg-gray-200 dark:bg-gray-800 py-2 px-6 border-b border-gray-300 dark:border-gray-700 ease-out duration-300">
+        <header className="bg-gray-200 dark:bg-gray-800 py-2 px-6 border-b border-gray-300 dark:border-gray-700 ease-out duration-300 z-50">
             <div className="container mx-auto flex justify-between items-center">
                 <a href="#" className="text-gray-900 dark:text-white font-bold text-xl">Thrift Trackr.</a>
                 {/* Desktop Nav Bar START*/}
@@ -28,7 +28,7 @@ export default async function PageHeader(){
 
                 {/* Mobile Nav Bar START */}
 
-                <nav id="mobile-navbar" className="flex md:hidden absolute z-50 bg-gray-200 dark:bg-gray-800 inset-x-0 -top-60 ease-out duration-300">
+                <nav id="mobile-navbar" className="flex md:hidden absolute bg-gray-200 dark:bg-gray-800 inset-x-0 -top-60 ease-out duration-1000">
                     <ul className="w-full divide-y">
                         <li className="text-center my-2 pt-4"><Link href="/" className="text-gray-900 dark:text-white">Home</Link></li>
                         <li className="text-center my-2 pt-4"><Link href="#" className="text-gray-900 dark:text-white">About</Link></li>
