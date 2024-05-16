@@ -25,8 +25,8 @@ const handleNavChange = () => {
 const NavButton = () => {
     return (
         <Link href={'#'} onClick={handleNavChange} className="flex md:hidden w-7 h-7 border-solid border-2 border-gray-400 rounded-md text-gray-500">
-            <Bars3Icon id="bar-icon"/>
-            <XMarkIcon id="x-mark-icon" className="hidden"/>
+            <Bars3Icon id="bar-icon" className="ease-out duration-300"/>
+            <XMarkIcon id="x-mark-icon" className="hidden ease-out duration-300"/>
         </Link>
     )
 };
