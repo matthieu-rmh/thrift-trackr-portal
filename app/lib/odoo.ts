@@ -36,4 +36,30 @@ export const odooAuthenticate = async () => {
     // console.log(result);
     return session_id;
     
-}
+};
+
+export const odooGetProductProduct = async () => {
+    /* 
+        Fetch product_product records from the odoo instance
+    */
+
+    const odoo_session = await odooAuthenticate();
+
+    const res = await fetch('http://localhost:8069/custom_api/products',{
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Cookie": `session_id=${odoo_session}`
+        }
+    });
+
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data');
+    }
+
+    let result = res.json();
+   
+    return result;
+
+};

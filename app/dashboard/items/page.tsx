@@ -3,6 +3,8 @@ import {Item} from "@app/lib/definitions";
 import { isFirstLoggedIn} from "@app/lib/actions";
 import ItemsTable from "@app/components/items-table";
 import { odooAuthenticate } from "@app/lib/odoo";
+import { odooGetProductProduct } from "@app/lib/odoo";
+import OdooProductProductTable from "@app/components/odoo-product-product-table";
 
 export default async function Page(){
     let isFLoggedIn = await isFirstLoggedIn();
@@ -11,6 +13,9 @@ export default async function Page(){
 
     let odooAuthenticationResBody = await odooAuthenticate();
     console.log( odooAuthenticationResBody );
+
+    let products = await odooGetProductProduct();
+    console.log(products);
 
     return(
         <div>
@@ -21,6 +26,8 @@ export default async function Page(){
             <div>
                 {odooAuthenticationResBody}
             </div>
+            <OdooProductProductTable products={products} />
+
         </div>
     );
 }
