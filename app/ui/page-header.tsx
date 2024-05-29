@@ -9,7 +9,7 @@ export default async function PageHeader(){
     return(
             <header className="z-50 bg-gray-200 dark:bg-gray-800 py-2 px-6 border-b border-gray-300 dark:border-gray-700 ease-out duration-300">
                 <div className="container mx-auto flex justify-between items-center">
-                    <a href="#" className="text-gray-900 dark:text-white font-bold text-xl">Thrift Trackr.</a>
+                    <a href="/" className="text-gray-900 dark:text-white font-bold text-xl">Thrift Trackr.</a>
                     {/* Desktop Nav Bar START*/}
                     <nav className="hidden md:flex">
                         <ul className="flex space-x-1 divide-x divide-gray-500">
